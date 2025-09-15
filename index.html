@@ -95,13 +95,15 @@ let convIndex=0,noCount=0;
 
 // Event logging for backend (Vercel or Node)
 function logEvent(eventName){
-  fetch('/api/logEvent',{
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({name,event:eventName})
-  }).then(res=>console.log(`${eventName} sent for ${name}`))
-  .catch(err=>console.log('Error logging',err));
+  fetch("/api/log", { // or wherever log.js is
+    method: "POST",
+    headers: {"Content-Type":"application/json"},
+    body: JSON.stringify({ name, event: eventName })
+  }).then(res => res.json())
+    .then(data => console.log("Logged:", data))
+    .catch(err => console.log(err));
 }
+
 
 function setConvMessage(text){ 
   const el=document.getElementById('convMsg');
