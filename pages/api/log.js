@@ -1,13 +1,26 @@
-let logData = []; // Memory storage for demo (resets on deploy)
+import { MongoClient } from "mongodb";
 
-export default function handler(req, res) {
-  if(req.method === "POST"){
-    const { name, event } = JSON.parse(req.body);
+const client = new MongoClient(process.env.MONGODB_URI);
+let collection;
+
+async function initDB() {
+  if (!collection) {
+    await client.connect();
+    const db = client.db("loveApp"); // database name
+    collection = db.collection("logs"); // collection name
+  }
+}
+
+export default async function handler(req, res) {
+  await initDB();
+
+  if (req.method === "POST") {
+    const { name, event } = req.body;
     const timestamp = new Date().toISOString();
-    logData.push({ name, event, timestamp });
-    console.log(logData);
-    res.status(200).json({ message: "Logged", logData });
-  } else if(req.method === "GET"){
-    res.status(200).json(logData);
+    await collection.insertOne({ name, event, timestamp });
+    res.status(200).json({ message: "Saved to MongoDB" });
+  } else if (req.method === "GET") {
+    const logs = await collection.find().toArray();
+    res.status(200).json(logs);
   }
 }
