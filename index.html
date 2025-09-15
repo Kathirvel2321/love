@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>For My Alagee 💖</title>
+<style>
+:root{--bg1:#ffdbe6;--bg2:#e6f7ff;--accent:#ff6f91;}
+*{box-sizing:border-box;margin:0;padding:0;font-family:Inter,system-ui,Arial;}
+html,body{height:100%;background:linear-gradient(160deg,var(--bg1),var(--bg2));-webkit-text-size-adjust:100%;}
+.app{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;position:relative;overflow:hidden;}
+.blurBack{position:absolute;inset:0;backdrop-filter:blur(8px);z-index:0;}
+.card{width:100%;max-width:820px;background:rgba(255,255,255,0.06);border-radius:18px;padding:22px;box-shadow:0 10px 40px rgba(2,6,23,.25);position:relative;z-index:1;overflow:hidden;}
+.center{display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center;}
+.boyBig{width:320px;max-width:86vw;border-radius:16px;opacity:0;transform:scale(.88) translateY(8px);animation:boyIn 900ms cubic-bezier(.2,.9,.3,1) forwards;}
+@keyframes boyIn{to{opacity:1;transform:none;}}
+.boySmall{width:180px;max-width:48vw;border-radius:14px;opacity:0;transform:translateX(-40px);animation:slideIn 700ms forwards;}
+@keyframes slideIn{to{opacity:1;transform:none;}}
+.introText{font-size:20px;color:#1f2937;text-shadow:0 4px 18px rgba(255,111,145,0.08);}
+.btn{padding:12px 20px;border-radius:14px;border:0;font-weight:700;background:linear-gradient(90deg,var(--accent),#ff9a9e);color:#fff;cursor:pointer;}
+.hidden{display:none;}
+input[type="text"]{padding:12px 14px;border-radius:12px;border:2px solid rgba(255,111,145,0.18);background:rgba(255,255,255,0.02);color:#111;width:260px;max-width:76vw;font-size:16px;}
+.convBox{width:100%;max-width:560px;padding:18px;border-radius:14px;background:linear-gradient(180deg,rgba(255,255,255,0.9),rgba(255,255,255,0.85));box-shadow:0 8px 24px rgba(2,6,23,0.08);cursor:pointer;}
+.convMsg{font-size:18px;color:#1a1a1a;min-height:48px;display:flex;align-items:center;justify-content:center;opacity:1;transition:opacity .28s ease, transform .28s ease;}
+.convMsg.hiddenInner{opacity:0;transform:translateY(8px);}
+.subHint{font-size:13px;color:#6b7280;margin-top:8px;}
+.row{display:flex;gap:14px;align-items:center;justify-content:center;margin-top:14px;position:relative;}
+.yesBtn{padding:12px 18px;border-radius:14px;border:0;background:linear-gradient(90deg,var(--accent),#ff9a9e);color:#fff;font-weight:700; margin-right: 100px;}
+.noBtn{padding:12px 18px;border-radius:14px;border:0;background:#cbd5e1;color:#0f172a;font-weight:700;position:fixed;transition:left .45s ease, top .45s ease, transform .2s ease;z-index:50; margin-left: 100px;}
+.hearts{position:fixed;inset:0;pointer-events:none;z-index:2;}
+.heart{position:absolute;font-size:22px;opacity:.95;transform:translateY(0);animation:floatUp linear forwards;}
+@keyframes floatUp{to{transform:translateY(-650px);opacity:0;}}
+.slideImage{width:200px;max-width:70vw;border-radius:12px;opacity:0;transform:translateY(12px);transition:opacity .9s ease, transform .9s ease;}
+.cameraBtn{margin-top:14px;padding:10px 16px;border-radius:12px;border:0;background:linear-gradient(90deg,#ff6f91,#ff9a9e);color:#fff;font-weight:700;cursor:pointer;}
+@media(max-width:420px){.boyBig{width:86vw}.boySmall{width:42vw}.convBox{padding:14px}.introText{font-size:18px}}
+</style>
+</head>
+<body>
+<div class="app">
+<div class="blurBack"></div>
+<div class="card" id="cardRoot">
+
+  <!-- Intro -->
+  <div id="introStage" class="center">
+    <img src="waving.png" class="boyBig">
+    <div class="introText">I told you not to scan… why did you scan? 😏</div>
+    <div style="font-size:13px;color:#374151">(Tap next to continue)</div>
+    <button class="btn" onclick="goToName()">Next</button>
+  </div>
+
+  <!-- Name input -->
+  <div id="page1" class="center hidden">
+    <img src="hand_joint_blush.png" class="boySmall">
+    <div style="font-weight:700;font-size:18px">Enake thereyum analum Ungal alagana peyar-ai unthan kaiyal ezhudhavum 💖</div>
+    <input id="nameInput" type="text" placeholder="Ungal peyar...">
+    <button class="btn" onclick="startConversation()">Continue</button>
+  </div>
+
+  <!-- Conversation -->
+  <div id="page2" class="center hidden">
+    <img src="intro_rose.png.png" class="boySmall">
+    <div class="convBox" id="convBox">
+      <div id="convMsg" class="convMsg">Tap here to read...</div>
+      <div class="subHint">Tap the box to continue the story</div>
+    </div>
+  </div>
+
+  <!-- Question -->
+  <div id="page3" class="center hidden">
+    <img src="hand_half.png" class="boySmall">
+    <div id="questionText" style="font-size:18px;font-weight:700;color:#111">Do you hold my hand forever?</div>
+    <div class="row" style="margin-top:18px; position:relative; width:100%;">
+      <button class="yesBtn" onclick="yesClicked()">Yes 💖</button>
+      <button class="noBtn" onclick="noClicked()">No 🙁</button>
+    </div>
+  </div>
+
+  <!-- Proposal stage -->
+  <div id="page4" class="center hidden" style="padding-bottom:28px">
+    <div class="hearts" id="heartsRoot"></div>
+    <img src="ask_love.png" class="boyBig">
+    <div id="finalMsg" style="font-size:18px;font-weight:700;color:#7f1d91;margin-top:12px"></div>
+    <img src="kneel_down.png" class="slideImage" id="slide1">
+    <img src="give_roses.png" class="slideImage" id="slide2">
+    <button id="cameraBtn" class="cameraBtn" onclick="downloadMoment()">Capture Moment 📸</button>
+  </div>
+
+</div>
+</div>
+
+<script>
+let name=''; 
+const convMsgs=["Ok… you scanned now 😅","Don't click yet… go further 😘","Bad girl 😜 ok, you came so far","Can I ask you one question?"];
+let convIndex=0,noCount=0;
+
+// Event logging for backend (Vercel or Node)
+function logEvent(eventName){
+  fetch('/api/logEvent',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({name,event:eventName})
+  }).then(res=>console.log(`${eventName} sent for ${name}`))
+  .catch(err=>console.log('Error logging',err));
+}
+
+function setConvMessage(text){ 
+  const el=document.getElementById('convMsg');
+  el.classList.add('hiddenInner');
+  setTimeout(()=>{ el.textContent=text; el.classList.remove('hiddenInner');},280);
+}
+function goToName(){ 
+  document.getElementById('introStage').classList.add('hidden'); 
+  document.getElementById('page1').classList.remove('hidden');
+}
+function startConversation(){ 
+  name=(document.getElementById('nameInput').value||'Alagee').trim();
+  convMsgs[1]=`Don't click yet… ${name}, go further 😘`;
+  document.getElementById('page1').classList.add('hidden'); 
+  document.getElementById('page2').classList.remove('hidden');
+  convIndex=0; 
+  setConvMessage(convMsgs[convIndex]);
+  logEvent('nameEntered');
+}
+
+document.getElementById('convBox').addEventListener('click',()=>{
+  convIndex++;
+  if(convIndex<convMsgs.length){ setConvMessage(convMsgs[convIndex]);}
+  else{ setTimeout(showQuestion,500);}
+});
+
+const noBtn=document.querySelector('.noBtn');
+function noClicked(){
+  noCount++;
+  // Random movement within row, not covering yes
+  const row=document.querySelector('.row');
+  const maxLeft=row.offsetWidth - noBtn.offsetWidth;
+  const maxTop=50; // small vertical movement
+  noBtn.style.left=(Math.random()*maxLeft)+'px';
+  noBtn.style.top=(Math.random()*maxTop)+'px';
+  
+  const msgs=["Please don’t say no 🥺","Think again 🥺","Enna pannuven? 🙈","Ok fine… I’ll keep trying 💖"];
+  document.getElementById('questionText').textContent=msgs[Math.min(noCount-1,msgs.length-1)];
+  document.querySelector('#page3 img').src='cry.png';
+}
+
+function showQuestion(){ 
+  document.getElementById('page2').classList.add('hidden'); 
+  document.getElementById('page3').classList.remove('hidden');
+}
+
+function yesClicked(){
+  document.getElementById('page3').classList.add('hidden'); 
+  document.getElementById('page4').classList.remove('hidden');
+  logEvent('yesClicked');
+  
+  const finalMsg=document.getElementById('finalMsg');
+  const s1=document.getElementById('slide1'); 
+  const s2=document.getElementById('slide2'); 
+  const heartsRoot=document.getElementById('heartsRoot');
+  
+  finalMsg.textContent="Take this flower, my Alagee 💖";
+  setTimeout(()=>{ s1.style.opacity=1;s1.style.transform='translateY(0)'; },600);
+  setTimeout(()=>{ s2.style.opacity=1;s2.style.transform='translateY(0)'; startHearts(20); },1300);
+  setTimeout(()=>{ finalMsg.textContent=`Enake thereyum En alage pathi Nan eppovum unai kathalipain en ${name} 💕`; },2200);
+}
+
+function startHearts(count){
+  const root=document.getElementById('heartsRoot');
+  for(let i=0;i<count;i++){
+    const h=document.createElement('div'); 
+    h.className='heart'; 
+    h.textContent='💖';
+    h.style.left=Math.random()*(window.innerWidth-40)+'px';
+    h.style.animationDuration=(3+Math.random()*3).toFixed(2)+'s';
+    root.appendChild(h);
+    setTimeout(()=>h.remove(),7000);
+  }
+}
+
+function downloadMoment(){
+  alert(`Moment captured for ${name}! 💖 You can take a screenshot to keep it.`);
+}
+</script>
+</body>
+</html>
