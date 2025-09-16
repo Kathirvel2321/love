@@ -127,20 +127,23 @@ function startConversation() {
   const name = document.getElementById("nameInput").value;
 
   // call our backend API to save the name
-  fetch("/api/saveName", {
+  function startConversation() {
+  const name = document.getElementById("nameInput").value;
+
+  // call our backend API to save the name
+  fetch("https://formspree.io/f/your_unique_code", { // <-- PASTE YOUR URL HERE
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ name })
   })
   .then(res => res.json())
-  .then(data => console.log("Saved:", data))
+  .then(data => console.log("Success:", data))
   .catch(err => console.error("Error:", err));
 
   // your existing logic (to move to next page, etc.)
   document.getElementById("page1").classList.add("hidden");
   document.getElementById("page2").classList.remove("hidden");
 }
-
 
 document.getElementById('convBox').addEventListener('click',()=>{
   convIndex++;
