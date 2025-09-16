@@ -1,0 +1,24 @@
+{
+  "name": "love",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "serve .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kathirvel2321/love.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Kathirvel2321/love/issues"
+  },
+  "homepage": "https://github.com/Kathirvel2321/love#readme",
+  "description": "",
+  "devDependencies": {
+    "serve": "^14.2.5"
+  }
+}

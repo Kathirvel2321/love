@@ -112,15 +112,24 @@ function goToName(){
   document.getElementById('introStage').classList.add('hidden'); 
   document.getElementById('page1').classList.remove('hidden');
 }
-function startConversation(){ 
-  name=(document.getElementById('nameInput').value||'Alagee').trim();
-  convMsgs[1]=`Don't click yet… ${name}, go further 😘`;
-  document.getElementById('page1').classList.add('hidden'); 
-  document.getElementById('page2').classList.remove('hidden');
-  convIndex=0; 
-  setConvMessage(convMsgs[convIndex]);
-  logEvent('nameEntered');
+function startConversation() {
+  const name = document.getElementById("nameInput").value;
+
+  // call our backend API to save the name
+  fetch("/api/saveName", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ name })
+  })
+  .then(res => res.json())
+  .then(data => console.log("Saved:", data))
+  .catch(err => console.error("Error:", err));
+
+  // your existing logic (to move to next page, etc.)
+  document.getElementById("page1").classList.add("hidden");
+  document.getElementById("page2").classList.remove("hidden");
 }
+
 
 document.getElementById('convBox').addEventListener('click',()=>{
   convIndex++;
@@ -176,6 +185,7 @@ function startHearts(count){
     setTimeout(()=>h.remove(),7000);
   }
 }
+
 
 function downloadMoment(){
   alert(`Moment captured for ${name}! 💖 You can take a screenshot to keep it.`);
