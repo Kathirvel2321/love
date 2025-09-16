@@ -102,7 +102,7 @@ let name='';
 const convMsgs=["Ok… you scanned now 😅","Don't click yet… go further 😘","Bad girl 😜 ok, you came so far","Can I ask you one question?"];
 let convIndex=0,noCount=0;
 
-/* Event logging for backend (Vercel or Node)
+// Event logging for backend (Vercel or Node)
 function logEvent(eventName){
   fetch("/api/log", { // or wherever log.js is
     method: "POST",
@@ -111,7 +111,7 @@ function logEvent(eventName){
   }).then(res => res.json())
     .then(data => console.log("Logged:", data))
     .catch(err => console.log(err));
-}*/
+}
 
 
 function setConvMessage(text){ 
